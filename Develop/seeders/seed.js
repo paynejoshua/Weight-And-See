@@ -2,7 +2,7 @@ let mongoose = require("mongoose");
 let db = require("../models");
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/WeightTracker'
+  process.env.MONGODB_URI || 'mongodb://localhost/WeightTracker',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
