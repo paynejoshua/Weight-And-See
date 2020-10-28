@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Workout = require("../models").Workout
-let path = require("path")
 
 router.get("/api/workouts", (req, res) => {
     Workout.find({})
@@ -22,9 +21,7 @@ router.post("/api/workouts", ({ body }, res) => {
       });
   });
 
-router.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/exercise.html"))
-})
+
 
 
 module.exports = router
