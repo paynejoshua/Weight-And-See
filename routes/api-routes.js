@@ -44,7 +44,10 @@ router.put("/api/workouts/:id", (req, res) => {
           type: req.body.type,
           name: req.body.name,
           distance: req.body.distance,
-          duration: req.body.duration
+          duration: req.body.duration,
+          weight: req.body.weight,
+          reps: req.body.reps,
+          sets: req.body.sets
         }
       )
       console.log(workout)
