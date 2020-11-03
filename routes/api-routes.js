@@ -21,7 +21,6 @@ router.get("/api/workouts/range", (req, res) => {
 })
 
 router.post("/api/workouts", ({ body }, res) => {
-    console.log(body, "My Body")
     Workout.create(body)
       .then(dbWorkout => {
         res.json(dbWorkout);
@@ -33,7 +32,6 @@ router.post("/api/workouts", ({ body }, res) => {
 
 
 router.put("/api/workouts/:id", (req, res) => {
-  console.log(req.body, "New Workout")
   Workout.findById(req.params.id, function(err, workout) {
     if(err) {
       res.status(400).json(err)
@@ -50,7 +48,6 @@ router.put("/api/workouts/:id", (req, res) => {
           sets: req.body.sets
         }
       )
-      console.log(workout)
       Workout.updateOne(
         {
           _id: req.params.id
@@ -63,7 +60,6 @@ router.put("/api/workouts/:id", (req, res) => {
           }
         }
       ).then(function (updateRes) {
-          console.log(updateRes)
           if(updateRes.ok == 0){
             res.status(400).json(err)
           }
