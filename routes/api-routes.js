@@ -32,13 +32,11 @@ router.post("/api/workouts", ({ body }, res) => {
 
 
 router.put("/api/workouts/:id", (req, res) => {
-  console.log("1")
   Workout.findById(req.params.id, function(err, workout) {
     if(err) {
       res.status(400).json(err)
     }
     else{
-      console.log("2")
       workout.exercises.push(
         {
           type: req.body.type,
@@ -62,7 +60,6 @@ router.put("/api/workouts/:id", (req, res) => {
           }
         }
       ).then(function (updateRes) {
-        console.log("3") 
         if(updateRes.ok == 0){
             res.status(400).json(err)
           }
