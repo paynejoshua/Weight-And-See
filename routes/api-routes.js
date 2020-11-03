@@ -3,7 +3,7 @@ const Workout = require("../models").Workout
 
 router.get("/api/workouts", (req, res) => {
     Workout.find({})
-    .sort( {day: -1 })
+    .sort( {day: 1 })
     .then(dbWorkout => {
         res.json(dbWorkout)
     }).catch(err => {
@@ -33,15 +33,41 @@ router.post("/api/workouts", ({ body }, res) => {
 
 
 router.put("/api/workouts/:id", (req, res) => {
-  Workout.update(
-    req.body,
-    {
-      where: {
-        id: req.body.id
-      }
-    }).then(function (dbWorkout) {
-      res.json(dbWorkout)
-    })
+  console.log(req.body, "New Workout")
+  Workout.findById(req.params.id, function(err, workout) {
+    if(err) {
+      res.status(400).json(err)
+    }
+    else{
+      workout.exercises.push(
+        {
+          type: req.body.type,
+          name: req.body.name,
+          distance: req.body.distance,
+          duration: req.body.duration
+        }
+      )
+      console.log(workout)
+      Workout.updateOne(
+        {
+          _id: req.params.id
+          
+        },
+        {
+          $set: {
+            id: req.params.id,
+            exercises: workout.exercises
+          }
+        }
+      ).then(function (updateRes) {
+          console.log(updateRes)
+          if(updateRes.ok == 0){
+            res.status(400).json(err)
+          }
+            res.status(200)
+        })
+    }
+  })
 })
 
 
